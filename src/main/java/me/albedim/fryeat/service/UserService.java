@@ -43,7 +43,7 @@ public class UserService
             User user = new User(
                     request.get("name").toString(),
                     request.get("username").toString(),
-                    request.get("password").toString(),
+                    Util.hash(request.get("password").toString()),
                     request.get("place").toString()
             );
             this.userRepository.save(user);
@@ -56,7 +56,7 @@ public class UserService
         try{
             User user = this.userRepository.signIn(
                     request.get("username").toString(),
-                    request.get("password").toString()
+                    Util.hash(request.get("password").toString())
             );
             if(user == null)
                 return Util.createResponse(false, Util.USER_NOT_FOUND, 404);

@@ -14,7 +14,7 @@ public class Util
 {
     // App consts
 
-    public static final String URL = "/api/v_1_0_0";
+    public static final String URL = "/api/v_1_0_5";
 
     public static final String NOT_ENOUGH_PERMISSIONS = "You don't have enough permissions to do this";
     public static final String INVALID_REQUEST = "Invalid request";
@@ -56,5 +56,31 @@ public class Util
         response.put("success", true);
         response.put("id", id);
         return response;
+    }
+
+    public static String hash(String password)
+    {
+        String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        String criptedChars = "C0yZEIipDF23djS5muGMfnV6HtcW4q9BJLXlPakrghNeK1AsU8xRwQbzYO7Tov";
+        for(int i = 0; i < password.length(); i++)
+            for(int j = 0; j < chars.length(); j++)
+                if(String.valueOf(password.charAt(i)).equals(String.valueOf(chars.charAt(j)))) {
+                    password = password.replace(String.valueOf(password.charAt(i)), String.valueOf(criptedChars.charAt(j)));
+                    break;
+                }
+        return password;
+    }
+
+    public static String unHash(String password)
+    {
+        String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        String criptedChars = "C0yZEIipDF23djS5muGMfnV6HtcW4q9BJLXlPakrghNeK1AsU8xRwQbzYO7Tov";
+        for(int i = 0; i < password.length(); i++)
+            for(int j = 0; j < criptedChars.length(); j++)
+                if(String.valueOf(password.charAt(i)).equals(String.valueOf(criptedChars.charAt(j)))) {
+                    password = password.replace(String.valueOf(password.charAt(i)), String.valueOf(chars.charAt(j)));
+                    break;
+                }
+        return password;
     }
 }
