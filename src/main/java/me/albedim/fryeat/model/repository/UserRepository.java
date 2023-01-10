@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -23,13 +24,22 @@ public interface UserRepository extends CrudRepository<User, Long>
     @Override
     <S extends User> S save(S entity);
 
+    @Query(value = "SELECT * FROM users WHERE username = :username", nativeQuery = true)
+    User getByUsername(@Param("username") String username);
+
+    @Query(value = "SELECT users.id, users.name, users.username, users.email, users.password, users.place " +
+            "FROM users " +
+            "JOIN participations " +
+            "ON participations.user_id = users.id " +
+            "AND participations.poll_id = :pollId", nativeQuery = true)
+    List<User> getParticipants(@Param("pollId") Long pollId);
+
     @Query(value = "SELECT * " +
             "FROM users " +
-            "WHERE username = :username " +
-            "AND password = :password " +
-            "OR email = :email " +
+            "WHERE username = :email_username " +
+            "OR email = :email_username " +
             "AND password = :password", nativeQuery = true)
-    User signIn(@Param("username") String username, @Param("password") String password, @Param("email") String email);
+    User signIn(@Param("email_username") String emailUsername, @Param("password") String password);
 
     @Query(value = "SELECT COUNT(*) FROM users WHERE username = :username", nativeQuery = true)
     Integer existsByUsername(@Param("username") String username);

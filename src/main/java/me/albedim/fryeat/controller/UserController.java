@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -30,9 +31,23 @@ public class UserController
 
     @PostMapping("/signup")
     @CrossOrigin
-    public HashMap signUp(@RequestBody HashMap request) throws NoSuchAlgorithmException
+    public HashMap signUp(@RequestBody HashMap request)
     {
         return this.userService.signUp(request);
+    }
+
+    @GetMapping("/getIterationUsersWithParticipation/{pollId}")
+    @CrossOrigin
+    public List<HashMap> getIterationUsers_Participation(@PathVariable Long pollId)
+    {
+        return this.userService.getIterationUsers_Participation(pollId);
+    }
+
+    @GetMapping("/getParticipants/{pollId}")
+    @CrossOrigin
+    public List<User> getParticipants(@PathVariable Long pollId)
+    {
+        return this.userService.getParticipants(pollId);
     }
 
     @PostMapping("/signin")

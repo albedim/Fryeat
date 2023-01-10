@@ -14,16 +14,21 @@ public class Util
 {
     // App consts
 
-    public static final String URL = "/api/v_1_1_5";
+    public static final String URL = "/api/v_1_2_0";
 
     public static final String NOT_ENOUGH_PERMISSIONS = "You don't have enough permissions to do this";
     public static final String INVALID_REQUEST = "Invalid request";
 
     // User consts
-
     public static final String USER_NOT_FOUND = "User not found";
-    public static final String USER_SUCCEFULLY_CREATED = "User was successfully created";
+    public static final String USER_SUCCESSFULLY_CREATED = "User was successfully created";
     public static final String USER_ALREADY_EXISTS = "A user with this username, already exists";
+
+    // Participations consts
+
+    public static final String PARTICIPATION_SUCCESSFULLY_DELETED = "Participation successfully deleted";
+    public static final String PARTICIPATION_SUCCESSFULLY_ADDED = "Participation successfully added to your poll";
+    public static final String PARTICIPATION_ALREADY_EXISTS = "This participation already exists";
 
     // Poll consts
 

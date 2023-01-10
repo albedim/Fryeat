@@ -3,9 +3,12 @@ package me.albedim.fryeat.service;
 import me.albedim.fryeat.model.entity.Poll;
 import me.albedim.fryeat.model.repository.PollRepository;
 import me.albedim.fryeat.utils.Util;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author: albedim <dimaio.albe@gmail.com>
@@ -20,9 +23,12 @@ public class PollService
 {
     private PollRepository pollRepository;
 
-    public PollService(PollRepository pollRepository)
+    private ParticipationService participationService;
+
+    public PollService(PollRepository pollRepository, ParticipationService participationService)
     {
         this.pollRepository = pollRepository;
+        this.participationService = participationService;
     }
 
     public HashMap create(HashMap request)
@@ -35,4 +41,20 @@ public class PollService
             return Util.createResponse(false, Util.INVALID_REQUEST, 500);
         }
     }
+
+    public List<Poll> getOwnPolls(Long ownerId)
+    {
+        return this.pollRepository.getOwnPolls(ownerId);
+    }
+
+    public List<Poll> getPolls(Long userId)
+    {
+        return this.pollRepository.getPolls(userId);
+    }
+
+    public Poll get(Long id)
+    {
+        return this.pollRepository.get(id);
+    }
+
 }
