@@ -23,6 +23,9 @@ public class User
     private String name;
     @Column(nullable = false)
     private String username;
+
+    @Column(nullable = false)
+    private String email;
     @Column(nullable = false)
     private String password;
 
@@ -32,16 +35,19 @@ public class User
 
     private User() { }
 
-    public User(String name, String username, String password, String place)
+    public User(String name, String username, String email, String password, String place)
     {
         setName(name);
         setUsername(username);
+        setEmail(email);
         setPlace(place);
         setPassword(password);
     }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public String getUsername() { return username; }

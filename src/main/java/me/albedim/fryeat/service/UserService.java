@@ -30,19 +30,21 @@ public class UserService
         this.userRepository = userRepository;
     }
 
-    private boolean existsByUsername(String username)
+    private boolean exists(String username, String email)
     {
-        return this.userRepository.existsByUsername(username) > 0;
+        return this.userRepository.existsByUsername(username) > 0
+                || this.userRepository.existsByEmail(email) > 0;
     }
 
     public HashMap signUp(HashMap request)
     {
-        if(existsByUsername(request.get("username").toString()))
+        if(exists(request.get("username").toString(), request.get("email").toString()))
             return Util.createResponse(false, Util.USER_ALREADY_EXISTS, 403);
         else {
             User user = new User(
                     request.get("name").toString(),
                     request.get("username").toString(),
+                    request.get("email").toString(),
                     Util.hash(request.get("password").toString()),
                     request.get("place").toString()
             );
@@ -56,6 +58,7 @@ public class UserService
         try{
             User user = this.userRepository.signIn(
                     request.get("username").toString(),
+                    request.get("email").toString(),
                     Util.hash(request.get("password").toString())
             );
             if(user == null)

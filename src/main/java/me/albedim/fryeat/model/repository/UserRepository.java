@@ -23,10 +23,18 @@ public interface UserRepository extends CrudRepository<User, Long>
     @Override
     <S extends User> S save(S entity);
 
-    @Query(value = "SELECT * FROM users WHERE username = :username AND password = :password", nativeQuery = true)
-    User signIn(@Param("username") String username, @Param("password") String password);
+    @Query(value = "SELECT * " +
+            "FROM users " +
+            "WHERE username = :username " +
+            "AND password = :password " +
+            "OR email = :email " +
+            "AND password = :password", nativeQuery = true)
+    User signIn(@Param("username") String username, @Param("password") String password, @Param("email") String email);
 
     @Query(value = "SELECT COUNT(*) FROM users WHERE username = :username", nativeQuery = true)
     Integer existsByUsername(@Param("username") String username);
+
+    @Query(value = "SELECT COUNT(*) FROM users WHERE email = :email", nativeQuery = true)
+    Integer existsByEmail(@Param("email") String email);
 
 }
