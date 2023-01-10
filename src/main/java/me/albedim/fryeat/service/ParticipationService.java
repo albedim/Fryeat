@@ -13,8 +13,8 @@ import java.util.Optional;
 
 /**
  * @author: albedim <dimaio.albe@gmail.com>
- * Created on: 09/01/23
- * Created at: 17:38
+ * Created on: 10/01/23
+ * Created at: 14:34
  * Version: 1.0.0
  * Description: This is the class for the participation service
  */
@@ -38,13 +38,17 @@ public class ParticipationService
 
     public HashMap add(HashMap request)
     {
-        User user = userService.getByUsername(request.get("username").toString());
-        if(exists(user.getId()))
-            return Util.createResponse(false, Util.PARTICIPATION_ALREADY_EXISTS, 403);
-        else{
-            Participation participation = new Participation(user.getId(), Long.parseLong(request.get("poll_id").toString()));
-            this.participationRepository.save(participation);
-            return Util.createResponse(true, Util.PARTICIPATION_SUCCESSFULLY_ADDED);
+        try{
+            User user = userService.getByUsername(request.get("username").toString());
+            if(exists(user.getId()))
+                return Util.createResponse(false, Util.PARTICIPATION_ALREADY_EXISTS, 403);
+            else{
+                Participation participation = new Participation(user.getId(), Long.parseLong(request.get("poll_id").toString()));
+                this.participationRepository.save(participation);
+                return Util.createResponse(true, Util.PARTICIPATION_SUCCESSFULLY_ADDED);
+            }
+        }catch (NullPointerException exception){
+            return Util.createResponse(false, Util.INVALID_REQUEST, 500);
         }
     }
 

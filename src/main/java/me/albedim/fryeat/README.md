@@ -4,7 +4,7 @@
 4. create poll #
 5. get polls #
 6. set vote
-7. get food
+7. get food #
 8. add food
 9. get poll_food
 10. add poll_food

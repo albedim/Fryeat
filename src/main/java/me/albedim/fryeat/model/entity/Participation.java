@@ -1,11 +1,13 @@
 package me.albedim.fryeat.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.servlet.http.Part;
+import org.springframework.http.codec.multipart.PartEvent;
 
 /**
  * @author: albedim <dimaio.albe@gmail.com>
- * Created on: 09/01/23
- * Created at: 19:14
+ * Created on: 10/01/23
+ * Created at: 14:34
  * Version: 1.0.0
  * Description: This is the class for the poll entity
  */
@@ -27,6 +29,7 @@ public class Participation
     @Column(nullable = false)
     private boolean hasVoted;
 
+    Participation() { }
 
     public Participation(Long userId, Long pollId)
     {

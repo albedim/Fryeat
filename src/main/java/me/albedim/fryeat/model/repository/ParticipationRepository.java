@@ -12,8 +12,8 @@ import java.util.Optional;
 
 /**
  * @author: albedim <dimaio.albe@gmail.com>
- * Created on: 09/01/23
- * Created at: 17:38
+ * Created on: 10/01/23
+ * Created at: 14:34
  * Version: 1.0.0
  * Description: This is the class for the participation repository
  */

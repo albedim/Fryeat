@@ -14,7 +14,7 @@ public class Util
 {
     // App consts
 
-    public static final String URL = "/api/v_1_2_0";
+    public static final String URL = "/api/v_1_2_5";
 
     public static final String NOT_ENOUGH_PERMISSIONS = "You don't have enough permissions to do this";
     public static final String INVALID_REQUEST = "Invalid request";
@@ -33,6 +33,10 @@ public class Util
     // Poll consts
 
     public static final String POLL_SUCCESSFULLY_CREATED = "Poll successfully created";
+
+    // Food consts
+
+    public static final String FOOD_SUCCESSFULLY_CREATED = "Food successfully created";
 
 
     public static HashMap createResponse(Boolean success, String param)

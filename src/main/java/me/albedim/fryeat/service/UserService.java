@@ -65,20 +65,22 @@ public class UserService
 
     public List<HashMap> getIterationUsers_Participation(Long pollId)
     {
+        try{
+            List<User> participants = this.userRepository.getParticipants(pollId);
+            List<User> allUsers = (List<User>) this.userRepository.findAll();
+            List<HashMap> users = new ArrayList<>();
 
-        List<User> participants = this.userRepository.getParticipants(pollId);
-        List<User> allUsers = (List<User>) this.userRepository.findAll();
-        List<HashMap> users = new ArrayList<>();
+            for(User user : allUsers)
+                if(!user.getId().equals(this.pollService.get(pollId).getOwnerId()))
+                    if(participants.contains(user))
+                        users.add(user.toJson(true));
+                    else
+                        users.add(user.toJson(false));
 
-        for(User user : allUsers)
-            if(!user.getId().equals(this.pollService.get(pollId).getOwnerId()))
-                if(participants.contains(user))
-                    users.add(user.toJson(true));
-                else
-                    users.add(user.toJson(false));
-
-        return users;
-
+            return users;
+        }catch (NullPointerException exception){
+            return null;
+        }
     }
 
     public List<User> getParticipants(Long pollId)
