@@ -2,7 +2,6 @@ package me.albedim.fryeat.controller;
 
 import me.albedim.fryeat.model.entity.Food;
 import me.albedim.fryeat.service.FoodService;
-import me.albedim.fryeat.service.ParticipationService;
 import me.albedim.fryeat.utils.Util;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +24,13 @@ public class FoodController
     public FoodController(FoodService foodService)
     {
         this.foodService = foodService;
+    }
+
+    @GetMapping("/getPollFood/{pollId}")
+    @CrossOrigin
+    public Iterable<Food> getPollFood(@PathVariable Long pollId)
+    {
+        return this.foodService.getPollFood(pollId);
     }
 
     @GetMapping("/get")

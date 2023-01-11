@@ -1,13 +1,9 @@
 package me.albedim.fryeat.controller;
 
-import me.albedim.fryeat.model.entity.User;
 import me.albedim.fryeat.service.ParticipationService;
-import me.albedim.fryeat.service.UserService;
 import me.albedim.fryeat.utils.Util;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
-import java.util.Optional;
 
 /**
  * @author: albedim <dimaio.albe@gmail.com>
@@ -33,6 +29,20 @@ public class ParticipationController
     public HashMap add(@RequestBody HashMap request)
     {
         return this.participationService.add(request);
+    }
+
+    @GetMapping("/hasVoted")
+    @CrossOrigin
+    public HashMap hasVoted(@RequestParam Long userId, @RequestParam Long pollId)
+    {
+        return this.participationService.hasVoted(pollId, userId);
+    }
+
+    @PutMapping("/setVote")
+    @CrossOrigin
+    public HashMap setVote(@RequestParam Long userId, @RequestParam Long pollId)
+    {
+        return this.participationService.setVote(pollId, userId);
     }
 
     @DeleteMapping("/delete")

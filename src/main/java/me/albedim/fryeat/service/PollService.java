@@ -3,12 +3,9 @@ package me.albedim.fryeat.service;
 import me.albedim.fryeat.model.entity.Poll;
 import me.albedim.fryeat.model.repository.PollRepository;
 import me.albedim.fryeat.utils.Util;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author: albedim <dimaio.albe@gmail.com>

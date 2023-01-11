@@ -1,6 +1,7 @@
 package me.albedim.fryeat.model.entity;
 
 import jakarta.persistence.*;
+import java.util.HashMap;
 
 /**
  * @author: albedim <dimaio.albe@gmail.com>
@@ -44,4 +45,14 @@ public class Food
     public String getImage() { return image; }
 
     public void setImage(String image) { this.image = image; }
+
+    public HashMap toJson(Integer votes)
+    {
+        HashMap response = new HashMap();
+        response.put("id", id);
+        response.put("name", name);
+        response.put("votes", votes);
+        return response;
+    }
+
 }

@@ -4,11 +4,6 @@ import me.albedim.fryeat.model.entity.User;
 import me.albedim.fryeat.model.repository.UserRepository;
 import me.albedim.fryeat.utils.Util;
 import org.springframework.stereotype.Service;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

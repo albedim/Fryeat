@@ -3,15 +3,17 @@
 3. get user #
 4. create poll #
 5. get polls #
-6. set vote
+6. set vote #
 7. get food #
-8. add food
-9. get poll_food
-10. add poll_food
-11. get my polls #
-12. get attendance of poll #
-13. add attendance to poll #
-14. remove attendance from poll #
-15. get attendance/or not of poll and split them #
-16. add vote
-17. get votes
+8. has_voted #
+9. add food #
+10. get poll_food #
+11. delete poll_food #
+12. add poll_food #
+13. get my polls #
+14. get attendance of poll #
+15. add attendance to poll #
+16. remove attendance from poll #
+17. get attendance/or not of poll and split them #
+18. add vote #
+19. get votes #

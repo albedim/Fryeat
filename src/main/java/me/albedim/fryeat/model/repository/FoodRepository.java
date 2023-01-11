@@ -1,12 +1,11 @@
 package me.albedim.fryeat.model.repository;
 
 import me.albedim.fryeat.model.entity.Food;
-import me.albedim.fryeat.model.entity.Participation;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author: albedim <dimaio.albe@gmail.com>
@@ -20,6 +19,13 @@ public interface FoodRepository extends CrudRepository<Food, Long>
 {
     @Override
     Iterable<Food> findAll();
+
+    @Query(value = "SELECT food.id, food.name, food.image " +
+            "FROM food " +
+            "JOIN polls_food " +
+            "ON food.id = polls_food.food_id " +
+            "AND polls_food.poll_id = :pollId", nativeQuery = true)
+    List<Food> getPollFood(@Param("pollId") Long pollId);
 
     @Override
     <S extends Food> S save(S entity);

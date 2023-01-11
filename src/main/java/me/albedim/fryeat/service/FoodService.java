@@ -1,15 +1,11 @@
 package me.albedim.fryeat.service;
 
 import me.albedim.fryeat.model.entity.Food;
-import me.albedim.fryeat.model.entity.Participation;
-import me.albedim.fryeat.model.entity.User;
 import me.albedim.fryeat.model.repository.FoodRepository;
-import me.albedim.fryeat.model.repository.ParticipationRepository;
 import me.albedim.fryeat.utils.Util;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author: albedim <dimaio.albe@gmail.com>
@@ -24,9 +20,12 @@ public class FoodService
 {
     private FoodRepository foodRepository;
 
-    public FoodService(FoodRepository foodRepository)
+    private VoteService voteService;
+
+    public FoodService(FoodRepository foodRepository, VoteService voteService)
     {
         this.foodRepository = foodRepository;
+        this.voteService = voteService;
     }
 
     public Iterable<Food> getFood()
@@ -44,4 +43,14 @@ public class FoodService
             return Util.createResponse(false, Util.INVALID_REQUEST, 500);
         }
     }
+
+    public List<Food> getPollFood(Long pollId)
+    {
+        try{
+            return this.foodRepository.getPollFood(pollId);
+        }catch (NullPointerException exception){
+            return null;
+        }
+    }
+
 }

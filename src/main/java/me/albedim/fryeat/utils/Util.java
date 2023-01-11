@@ -14,8 +14,7 @@ public class Util
 {
     // App consts
 
-    public static final String URL = "/api/v_1_2_5";
-
+    public static final String URL = "/api/v_1_3_0";
     public static final String NOT_ENOUGH_PERMISSIONS = "You don't have enough permissions to do this";
     public static final String INVALID_REQUEST = "Invalid request";
 
@@ -24,19 +23,30 @@ public class Util
     public static final String USER_SUCCESSFULLY_CREATED = "User was successfully created";
     public static final String USER_ALREADY_EXISTS = "A user with this username, already exists";
 
-    // Participations consts
+    // PollFood consts
+    public static final String POLLFOOD_ALREADY_EXISTS = "This food is already in this poll";
+    public static final String POLLFOOD_SUCCESSFULLY_DELETED = "This food was successfully deleted";
+    public static final String POLLFOOD_SUCCESSFULLY_CREATED = "Food successfully created and added to this poll";
 
+    // Participations consts
     public static final String PARTICIPATION_SUCCESSFULLY_DELETED = "Participation successfully deleted";
     public static final String PARTICIPATION_SUCCESSFULLY_ADDED = "Participation successfully added to your poll";
     public static final String PARTICIPATION_ALREADY_EXISTS = "This participation already exists";
 
-    // Poll consts
+    // Vote consts
+    public static final String VOTE_SUCCESSFULLY_SET = "You have successfully set the vote";
+    public static final String VOTE_SUCCESSFULLY_ADDED = "Your vote has been added";
 
+    // Poll consts
     public static final String POLL_SUCCESSFULLY_CREATED = "Poll successfully created";
 
     // Food consts
-
     public static final String FOOD_SUCCESSFULLY_CREATED = "Food successfully created";
+
+    // Mail consts
+    public static final String NOREPLY_EMAIL = "";
+    public static final String MAIL_OBJECT = "You have been invited to a poll!";
+    public static final String MAIL_TEXT = "Hi";
 
 
     public static HashMap createResponse(Boolean success, String param)

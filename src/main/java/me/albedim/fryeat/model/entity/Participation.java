@@ -1,8 +1,6 @@
 package me.albedim.fryeat.model.entity;
 
 import jakarta.persistence.*;
-import jakarta.servlet.http.Part;
-import org.springframework.http.codec.multipart.PartEvent;
 
 /**
  * @author: albedim <dimaio.albe@gmail.com>
@@ -51,7 +49,7 @@ public class Participation
 
     public void setPollId(Long pollId) { this.pollId = pollId; }
 
-    public boolean isHasVoted() { return hasVoted; }
+    public boolean hasVoted() { return hasVoted; }
 
     public void setHasVoted(boolean hasVoted) { this.hasVoted = hasVoted; }
 }

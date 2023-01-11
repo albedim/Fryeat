@@ -20,8 +20,16 @@ import java.util.Optional;
 
 public interface ParticipationRepository extends CrudRepository<Participation, Long>
 {
-    @Query(value = "SELECT COUNT(*) FROM participations WHERE user_id = :userId", nativeQuery = true)
-    Integer exists(@Param("userId") Long userId);
+    @Query(value = "SELECT COUNT(*) FROM participations WHERE user_id = :userId AND poll_id = :pollId", nativeQuery = true)
+    Integer exists(@Param("pollId") Long pollId, @Param("userId") Long userId);
+
+    @Query(value = "SELECT COUNT(*) FROM participations WHERE poll_id = :pollId AND user_id = :userId AND has_voted = true", nativeQuery = true)
+    Integer hasVoted(@Param("pollId") Long pollId, @Param("userId") Long userId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE participations SET has_voted = true WHERE poll_id = :pollId AND user_id = :userId", nativeQuery = true)
+    void setVote(@Param("pollId") Long pollId, @Param("userId") Long userId);
 
     @Modifying
     @Transactional

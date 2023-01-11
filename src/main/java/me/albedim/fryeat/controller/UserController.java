@@ -4,8 +4,6 @@ import me.albedim.fryeat.model.entity.User;
 import me.albedim.fryeat.service.UserService;
 import me.albedim.fryeat.utils.Util;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
