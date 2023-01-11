@@ -48,11 +48,22 @@ public class ParticipationService
             else{
                 Participation participation = new Participation(user.getId(), Long.parseLong(request.get("poll_id").toString()));
                 this.participationRepository.save(participation);
+                sendMail(user);
                 return Util.createResponse(true, Util.PARTICIPATION_SUCCESSFULLY_ADDED);
             }
         }catch (NullPointerException exception){
             return Util.createResponse(false, Util.INVALID_REQUEST, 500);
         }
+    }
+
+    public void sendMail(User user)
+    {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(Util.NOREPLY_EMAIL);
+        message.setTo(user.getEmail());
+        message.setSubject(Util.MAIL_OBJECT);
+        message.setText(Util.MAIL_TEXT);
+        javaMailSender.send(message);
     }
 
     public HashMap hasVoted(Long pollId, Long userId)
