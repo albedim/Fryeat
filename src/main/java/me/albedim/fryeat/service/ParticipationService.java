@@ -1,15 +1,26 @@
 package me.albedim.fryeat.service;
 
+import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
 import me.albedim.fryeat.model.entity.Participation;
 import me.albedim.fryeat.model.entity.User;
 import me.albedim.fryeat.model.repository.ParticipationRepository;
 import me.albedim.fryeat.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.mail.MailMessage;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Properties;
 
 /**
  * @author: albedim <dimaio.albe@gmail.com>
@@ -43,36 +54,31 @@ public class ParticipationService
     {
         try{
             User user = userService.getByUsername(request.get("username").toString());
-            if(exists(Long.parseLong(request.get("poll_id").toString()), user.getId()))
+            if(exists(Long.parseLong(request.get("pollId").toString()), user.getId()))
                 return Util.createResponse(false, Util.PARTICIPATION_ALREADY_EXISTS, 403);
             else{
-                Participation participation = new Participation(user.getId(), Long.parseLong(request.get("poll_id").toString()));
+                Participation participation = new Participation(user.getId(), Long.parseLong(request.get("pollId").toString()));
                 this.participationRepository.save(participation);
-                sendMail(user);
+                sendMail(user, request.get("pollId").toString());
                 return Util.createResponse(true, Util.PARTICIPATION_SUCCESSFULLY_ADDED);
             }
         }catch (NullPointerException exception){
             return Util.createResponse(false, Util.INVALID_REQUEST, 500);
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void sendMail(User user)
+    public void sendMail(User user, String pollId) throws MessagingException, UnsupportedEncodingException
     {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(Util.NOREPLY_EMAIL);
-        message.setTo(user.getEmail());
-        message.setSubject(Util.MAIL_OBJECT);
-        message.setText(Util.MAIL_TEXT);
-        javaMailSender.send(message);
-    }
-
-    public HashMap hasVoted(Long pollId, Long userId)
-    {
-        boolean hasVoted = this.participationRepository.hasVoted(pollId, userId) > 0;
-        return Util.createResponse(
-                true,
-                String.valueOf(hasVoted)
-        );
+        MimeMessage msg = Util.getMessage();
+        msg.setFrom(new InternetAddress(Util.NOREPLY_EMAIL, Util.MAIL_SUBJECT));
+        msg.setReplyTo(InternetAddress.parse(Util.NOREPLY_EMAIL, false));
+        msg.setSubject(Util.MAIL_SUBJECT, "UTF-8");
+        msg.setContent(Util.MAIL_TEXT.replace("{name}", user.getName()).replace("{pollId}", pollId), "text/html");
+        msg.setSentDate(new Date());
+        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail(), false));
+        Transport.send(msg);
     }
 
     public HashMap setVote(Long pollId, Long userId)

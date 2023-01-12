@@ -31,13 +31,6 @@ public class ParticipationController
         return this.participationService.add(request);
     }
 
-    @GetMapping("/hasVoted")
-    @CrossOrigin
-    public HashMap hasVoted(@RequestParam Long userId, @RequestParam Long pollId)
-    {
-        return this.participationService.hasVoted(pollId, userId);
-    }
-
     @PutMapping("/setVote")
     @CrossOrigin
     public HashMap setVote(@RequestParam Long userId, @RequestParam Long pollId)

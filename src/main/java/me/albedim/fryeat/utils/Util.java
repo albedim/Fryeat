@@ -1,5 +1,11 @@
 package me.albedim.fryeat.utils;
 
+import jakarta.mail.Authenticator;
+import jakarta.mail.MessagingException;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+import jakarta.mail.internet.MimeMessage;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -9,12 +15,13 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Properties;
 
 public class Util
 {
     // App consts
 
-    public static final String URL = "/api/v_1_3_5";
+    public static final String URL = "/api/v_1_4_0";
     public static final String NOT_ENOUGH_PERMISSIONS = "You don't have enough permissions to do this";
     public static final String INVALID_REQUEST = "Invalid request";
 
@@ -44,9 +51,19 @@ public class Util
     public static final String FOOD_SUCCESSFULLY_CREATED = "Food successfully created";
 
     // Mail consts
-    public static final String NOREPLY_EMAIL = "";
-    public static final String MAIL_OBJECT = "You have been invited to a poll!";
-    public static final String MAIL_TEXT = "Hi";
+    public static final String NOREPLY_EMAIL = "noreply.fryeat@gmail.com";
+    public static final String NOREPLY_PASSWORD = "qobcjeukowzdmwfb";
+    public static final String EMAIL = "noreply.fryeat@gmail.com";
+    public static final String MAIL_SUBJECT = "New Invite for you!";
+    public static final String MAIL_TEXT =
+        """
+            <html>
+                <body>
+                    <h2>Hi {name}, You have been invited to a new poll!</h2>
+                    <a href="https://localhost:3000/home/{pollId}"><button>Join</button></a>
+                </body>
+            </html>
+        """;
 
 
     public static HashMap createResponse(Boolean success, String param)
@@ -89,6 +106,27 @@ public class Util
                     break;
                 }
         return hashedPassword;
+    }
+
+    public static MimeMessage getMessage() throws MessagingException
+    {
+        Properties prop = new Properties();
+        prop.put("mail.smtp.auth", true);
+        prop.put("mail.smtp.starttls.enable", "true");
+        prop.put("mail.smtp.host", "smtp.gmail.com");
+        prop.put("mail.smtp.port", "25");
+        prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        Session session = Session.getInstance(prop, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(EMAIL, NOREPLY_PASSWORD);
+            }
+        });
+        MimeMessage msg = new MimeMessage(session);
+        msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+        msg.addHeader("format", "flowed");
+        msg.addHeader("Content-Transfer-Encoding", "8bit");
+        return msg;
     }
 
     public static String unHash(String password)
