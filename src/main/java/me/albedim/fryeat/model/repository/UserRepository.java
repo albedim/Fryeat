@@ -1,9 +1,12 @@
 package me.albedim.fryeat.model.repository;
 
 import me.albedim.fryeat.model.entity.User;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -17,16 +20,25 @@ import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Long>
 {
-    @Override
-    Optional<User> findById(Long aLong);
 
     @Override
     <S extends User> S save(S entity);
 
+    @Query(value = "SELECT * FROM users WHERE id = :id", nativeQuery = true)
+    User get(@Param("id") Long id);
+
     @Query(value = "SELECT * FROM users WHERE username = :username", nativeQuery = true)
     User getByUsername(@Param("username") String username);
 
-    @Query(value = "SELECT users.id, users.name, users.username, users.email, users.password, users.place " +
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE users SET password = :password WHERE id = :id", nativeQuery = true)
+    void changePassword(@Param("password") String password, @Param("id") Long id);
+
+    @Query(value = "SELECT * FROM users WHERE email = :email", nativeQuery = true)
+    User getByEmail(@Param("email") String email);
+
+    @Query(value = "SELECT users.* " +
             "FROM users " +
             "JOIN participations " +
             "ON participations.user_id = users.id " +

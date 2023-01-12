@@ -42,7 +42,7 @@ public class FoodController
 
     @PostMapping("/add")
     @CrossOrigin
-    public HashMap addFood(HashMap request)
+    public HashMap addFood(@RequestBody HashMap request)
     {
         return this.foodService.addFood(request);
     }

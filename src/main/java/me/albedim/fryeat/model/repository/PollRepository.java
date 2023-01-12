@@ -22,7 +22,7 @@ public interface PollRepository extends CrudRepository<Poll, Long>
     @Query(value = "SELECT * FROM polls WHERE id = :id", nativeQuery = true)
     Poll get(@Param("id") Long id);
 
-    @Query(value = "SELECT polls.id, polls.name, polls.finished, polls.owner_id " +
+    @Query(value = "SELECT polls.* " +
             "FROM polls " +
             "JOIN participations " +
             "ON participations.poll_id = polls.id " +

@@ -17,3 +17,7 @@
 17. get attendance/or not of poll and split them #
 18. add vote #
 19. get votes #
+20. create recovery link #
+21. check recovery link #
+22. remove recovery link #
+23. change password #

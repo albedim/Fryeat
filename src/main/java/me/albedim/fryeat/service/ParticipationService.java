@@ -72,7 +72,7 @@ public class ParticipationService
     public void sendMail(User user, String pollId) throws MessagingException, UnsupportedEncodingException
     {
         MimeMessage msg = Util.getMessage();
-        msg.setFrom(new InternetAddress(Util.NOREPLY_EMAIL, Util.MAIL_SUBJECT));
+        msg.setFrom(new InternetAddress(Util.NOREPLY_EMAIL, Util.NOREPLY_NAME));
         msg.setReplyTo(InternetAddress.parse(Util.NOREPLY_EMAIL, false));
         msg.setSubject(Util.MAIL_SUBJECT, "UTF-8");
         msg.setContent(Util.MAIL_TEXT.replace("{name}", user.getName()).replace("{pollId}", pollId), "text/html");

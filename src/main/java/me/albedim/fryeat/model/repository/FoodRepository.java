@@ -20,7 +20,7 @@ public interface FoodRepository extends CrudRepository<Food, Long>
     @Override
     Iterable<Food> findAll();
 
-    @Query(value = "SELECT food.id, food.name, food.image " +
+    @Query(value = "SELECT food.* " +
             "FROM food " +
             "JOIN polls_food " +
             "ON food.id = polls_food.food_id " +

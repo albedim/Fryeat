@@ -21,12 +21,13 @@ public class Util
 {
     // App consts
 
-    public static final String URL = "/api/v_1_4_0";
+    public static final String URL = "/api/v_1_4_5";
     public static final String NOT_ENOUGH_PERMISSIONS = "You don't have enough permissions to do this";
     public static final String INVALID_REQUEST = "Invalid request";
 
     // User consts
     public static final String USER_NOT_FOUND = "User not found";
+    public static final String USER_PASSWORD_SUCCESSFULLY_CHANGED = "Password successfully changed";
     public static final String USER_SUCCESSFULLY_CREATED = "User was successfully created";
     public static final String USER_ALREADY_EXISTS = "A user with this username, already exists";
 
@@ -52,18 +53,74 @@ public class Util
 
     // Mail consts
     public static final String NOREPLY_EMAIL = "noreply.fryeat@gmail.com";
+    public static final String NOREPLY_NAME = "Fryeat";
     public static final String NOREPLY_PASSWORD = "qobcjeukowzdmwfb";
     public static final String EMAIL = "noreply.fryeat@gmail.com";
     public static final String MAIL_SUBJECT = "New Invite for you!";
     public static final String MAIL_TEXT =
         """
             <html>
+              <head>
+                <title>Hello, World!</title>
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
+                <link rel="stylesheet" href="styles.css" />
+              </head>
+              <body>
+                <div class="a">
+                  <div>
+                    <h3>Hey {name}, You have just got invited for a poll!</h3>
+                    <h3>What are you waiting for winning this</h3>
+                    <h3>and make your friends eta what you want!</h3>
+                  </div>
+                  <a href="https://localhost/home/{pollId}"><button>Vote Now</button></a>
+                </div>
+              </body>
+            </html>
+    
+            <style type="text/css" media="all">
+              h3{
+                font-size: 12px;
+                font-family: 'Source Sans Pro', sans-serif;
+              }
+             \s
+              .a{
+                margin-top: 34%;
+                display: block;
+              }
+             \s
+              body{
+                justify-content: space-around;
+                display: flex;
+              }
+             \s
+              button{
+                border-radius: 10px;
+                color: black;
+                border: none;
+                width: 134px;
+                height: 34px;
+                font-family: 'Source Sans Pro', sans-serif;
+                background-color: #fa8846;
+              }
+            </style>
+                """;
+
+    // Recovery link consts
+    public static final String RECOVERY_LINK_SUCCESSFULLY_CREATED = "A link was successfully created";
+    public static final String RECOVERY_LINK_SUCCESSFULLY_DELETED = "A link was successfully deleted";
+    public static final String RECOVERY_LINK_MAIL_SUBJECT = "Change your password";
+    public static final String RECOVERY_LINK_MAIL_TEXT =
+        """
+            <html>
                 <body>
-                    <h2>Hi {name}, You have been invited to a new poll!</h2>
-                    <a href="https://localhost:3000/home/{pollId}"><button>Join</button></a>
+                    <h2>Hi {name}, This is the link to change your password</h2>
+                    <a href="https://localhost:3000/changepassword?l={link}"><button>Change</button></a>
                 </body>
             </html>
         """;
+
 
 
     public static HashMap createResponse(Boolean success, String param)

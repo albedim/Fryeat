@@ -57,9 +57,16 @@ public class UserController
 
     @GetMapping("get/{id}")
     @CrossOrigin
-    public Optional<User> get(@PathVariable Long id)
+    public User get(@PathVariable Long id)
     {
         return this.userService.get(id);
+    }
+
+    @PutMapping("/changePassword")
+    @CrossOrigin
+    public HashMap changePassword(@RequestBody HashMap request)
+    {
+        return this.userService.changePassword(request);
     }
 
 }

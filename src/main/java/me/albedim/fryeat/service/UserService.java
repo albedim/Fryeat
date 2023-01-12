@@ -3,6 +3,7 @@ package me.albedim.fryeat.service;
 import me.albedim.fryeat.model.entity.User;
 import me.albedim.fryeat.model.repository.UserRepository;
 import me.albedim.fryeat.utils.Util;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,10 +25,14 @@ public class UserService
 
     private PollService pollService;
 
+    private RecoveryLinkService recoveryLinkService;
 
-    public UserService(UserRepository userRepository, PollService pollService)
+
+    public UserService(UserRepository userRepository, PollService pollService,
+                       @Lazy RecoveryLinkService recoveryLinkService)
     {
         this.pollService = pollService;
+        this.recoveryLinkService = recoveryLinkService;
         this.userRepository = userRepository;
     }
 
@@ -108,9 +113,22 @@ public class UserService
         }
     }
 
-    public Optional<User> get(Long id)
+    public User get(Long id)
     {
-        return this.userRepository.findById(id);
+        return this.userRepository.get(id);
+    }
+
+    public User getByEmail(String email)
+    {
+        return this.userRepository.getByEmail(email);
+    }
+
+    public HashMap changePassword(HashMap request)
+    {
+        String hashedPassword = Util.hash(request.get("password").toString());
+        this.userRepository.changePassword(hashedPassword, Long.parseLong(request.get("id").toString()));
+        this.recoveryLinkService.deleteLink(Long.parseLong(request.get("id").toString()));
+        return Util.createResponse(true, Util.USER_PASSWORD_SUCCESSFULLY_CHANGED);
     }
 
 }
