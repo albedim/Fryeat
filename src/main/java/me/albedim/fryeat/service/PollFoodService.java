@@ -32,15 +32,19 @@ public class PollFoodService
 
     public HashMap add(HashMap request)
     {
-        if(exists(Long.parseLong(request.get("foodId").toString()), Long.parseLong(request.get("pollId").toString())))
-            return Util.createResponse(false, Util.POLLFOOD_ALREADY_EXISTS, 403);
-        else{
-            PollFood pollFood = new PollFood(
-                    Long.parseLong(request.get("foodId").toString()),
-                    Long.parseLong(request.get("pollId").toString())
-            );
-            this.pollFoodRepository.save(pollFood);
-            return Util.createResponse(true, Util.POLLFOOD_SUCCESSFULLY_CREATED);
+        try{
+            if(exists(Long.parseLong(request.get("foodId").toString()), Long.parseLong(request.get("pollId").toString())))
+                return Util.createResponse(false, Util.POLLFOOD_ALREADY_EXISTS, 403);
+            else{
+                PollFood pollFood = new PollFood(
+                        Long.parseLong(request.get("foodId").toString()),
+                        Long.parseLong(request.get("pollId").toString())
+                );
+                this.pollFoodRepository.save(pollFood);
+                return Util.createResponse(true, Util.POLLFOOD_SUCCESSFULLY_CREATED);
+            }
+        }catch (NullPointerException exception){
+            return Util.createResponse(false, Util.INVALID_REQUEST, 500);
         }
     }
 

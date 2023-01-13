@@ -44,12 +44,16 @@ public class VoteService
 
     public HashMap addVote(HashMap request)
     {
-        Vote vote = new Vote(
-                Long.parseLong(request.get("pollId").toString()),
-                Long.parseLong(request.get("foodId").toString())
-        );
-        this.voteRepository.save(vote);
-        return Util.createResponse(true, Util.VOTE_SUCCESSFULLY_ADDED);
+        try{
+            Vote vote = new Vote(
+                    Long.parseLong(request.get("pollId").toString()),
+                    Long.parseLong(request.get("foodId").toString())
+            );
+            this.voteRepository.save(vote);
+            return Util.createResponse(true, Util.VOTE_SUCCESSFULLY_ADDED);
+        }catch (NullPointerException exception){
+            return Util.createResponse(false, Util.INVALID_REQUEST, 500);
+        }
     }
 
 }

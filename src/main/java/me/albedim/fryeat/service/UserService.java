@@ -66,7 +66,8 @@ public class UserService
         }catch (NullPointerException exception){
             return Util.createResponse(false, Util.INVALID_REQUEST, 500);
         } catch (MessagingException | UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
+            return Util.createResponse(false, Util.INVALID_REQUEST, 500);
         }
     }
 
@@ -144,10 +145,14 @@ public class UserService
 
     public HashMap changePassword(HashMap request)
     {
-        String hashedPassword = Util.hash(request.get("password").toString());
-        this.userRepository.changePassword(hashedPassword, Long.parseLong(request.get("id").toString()));
-        this.recoveryLinkService.deleteLink(Long.parseLong(request.get("id").toString()));
-        return Util.createResponse(true, Util.USER_PASSWORD_SUCCESSFULLY_CHANGED);
+        try{
+            String hashedPassword = Util.hash(request.get("password").toString());
+            this.userRepository.changePassword(hashedPassword, Long.parseLong(request.get("id").toString()));
+            this.recoveryLinkService.deleteLink(Long.parseLong(request.get("id").toString()));
+            return Util.createResponse(true, Util.USER_PASSWORD_SUCCESSFULLY_CHANGED);
+        }catch (NullPointerException exception){
+            return Util.createResponse(false, Util.INVALID_REQUEST, 500);
+        }
     }
 
 }

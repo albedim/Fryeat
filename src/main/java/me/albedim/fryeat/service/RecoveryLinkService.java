@@ -39,10 +39,14 @@ public class RecoveryLinkService
 
     public HashMap exists(HashMap request)
     {
-        RecoveryLink recoveryLink = this.recoveryLinkRepository.get(request.get("link").toString());
-        if(recoveryLink != null)
-            return Util.createResponse(true, recoveryLink.getUserId().toString());
-        else return Util.createResponse(false, Util.USER_NOT_FOUND, 404);
+        try{
+            RecoveryLink recoveryLink = this.recoveryLinkRepository.get(request.get("link").toString());
+            if(recoveryLink != null)
+                return Util.createResponse(true, recoveryLink.getUserId().toString());
+            else return Util.createResponse(false, Util.USER_NOT_FOUND, 404);
+        }catch (NullPointerException exception){
+            return Util.createResponse(false, Util.INVALID_REQUEST, 500);
+        }
     }
 
     private void sendMail(User user, String link) throws MessagingException, UnsupportedEncodingException

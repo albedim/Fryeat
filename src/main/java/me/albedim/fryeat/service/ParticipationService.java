@@ -65,7 +65,8 @@ public class ParticipationService
         }catch (NullPointerException exception){
             return Util.createResponse(false, Util.INVALID_REQUEST, 500);
         } catch (MessagingException | UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
+            return Util.createResponse(false, Util.INVALID_REQUEST, 500);
         }
     }
 

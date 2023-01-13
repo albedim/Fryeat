@@ -20,7 +20,7 @@ import java.util.Properties;
 public class Util
 {
     // App consts
-    public static final String URL = "/api/v_1_5_0";
+    public static final String URL = "/api/v_1_5_5";
     public static final String NOT_ENOUGH_PERMISSIONS = "You don't have enough permissions to do this";
     public static final String INVALID_REQUEST = "Invalid request";
 
