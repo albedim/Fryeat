@@ -20,14 +20,22 @@ import java.util.Properties;
 public class Util
 {
     // App consts
-
-    public static final String URL = "/api/v_1_4_5";
+    public static final String URL = "/api/v_1_5_0";
     public static final String NOT_ENOUGH_PERMISSIONS = "You don't have enough permissions to do this";
     public static final String INVALID_REQUEST = "Invalid request";
 
     // User consts
     public static final String USER_NOT_FOUND = "User not found";
     public static final String USER_PASSWORD_SUCCESSFULLY_CHANGED = "Password successfully changed";
+    public static final String SIGNUP_MAIL_SUBJECT = "Welcome to Fryeat!";
+    public static final String SIGNUP_MAIL_TEXT =
+            """
+                <html>
+                    <body>
+                        <h2>Hi {name}, Welcome to our platform</h2>
+                    </body>
+                </html>
+            """;
     public static final String USER_SUCCESSFULLY_CREATED = "User was successfully created";
     public static final String USER_ALREADY_EXISTS = "A user with this username, already exists";
 
@@ -62,9 +70,6 @@ public class Util
             <html>
               <head>
                 <title>Hello, World!</title>
-                <link rel="preconnect" href="https://fonts.googleapis.com">
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-                <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="styles.css" />
               </head>
               <body>
@@ -78,34 +83,7 @@ public class Util
                 </div>
               </body>
             </html>
-    
-            <style type="text/css" media="all">
-              h3{
-                font-size: 12px;
-                font-family: 'Source Sans Pro', sans-serif;
-              }
-             \s
-              .a{
-                margin-top: 34%;
-                display: block;
-              }
-             \s
-              body{
-                justify-content: space-around;
-                display: flex;
-              }
-             \s
-              button{
-                border-radius: 10px;
-                color: black;
-                border: none;
-                width: 134px;
-                height: 34px;
-                font-family: 'Source Sans Pro', sans-serif;
-                background-color: #fa8846;
-              }
-            </style>
-                """;
+        """;
 
     // Recovery link consts
     public static final String RECOVERY_LINK_SUCCESSFULLY_CREATED = "A link was successfully created";

@@ -1,14 +1,18 @@
 package me.albedim.fryeat.service;
 
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import me.albedim.fryeat.model.entity.User;
 import me.albedim.fryeat.model.repository.UserRepository;
 import me.albedim.fryeat.utils.Util;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 
 /**
  * @author: albedim <dimaio.albe@gmail.com>
@@ -56,10 +60,13 @@ public class UserService
                         request.get("place").toString()
                 );
                 this.userRepository.save(user);
+                sendMail(user);
                 return Util.createResponse(true, Util.USER_SUCCESSFULLY_CREATED);
             }
         }catch (NullPointerException exception){
             return Util.createResponse(false, Util.INVALID_REQUEST, 500);
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -111,6 +118,18 @@ public class UserService
         }catch (NullPointerException exception){
             return null;
         }
+    }
+
+    public void sendMail(User user) throws MessagingException, UnsupportedEncodingException
+    {
+        MimeMessage msg = Util.getMessage();
+        msg.setFrom(new InternetAddress(Util.NOREPLY_EMAIL, Util.NOREPLY_NAME));
+        msg.setReplyTo(InternetAddress.parse(Util.NOREPLY_EMAIL, false));
+        msg.setSubject(Util.SIGNUP_MAIL_SUBJECT, "UTF-8");
+        msg.setContent(Util.SIGNUP_MAIL_TEXT.replace("{name}", user.getName()), "text/html");
+        msg.setSentDate(new Date());
+        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail(), false));
+        Transport.send(msg);
     }
 
     public User get(Long id)

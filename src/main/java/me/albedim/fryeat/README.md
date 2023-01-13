@@ -5,7 +5,6 @@
 5. get polls #
 6. set vote #
 7. get food #
-8. has_voted #
 9. add food #
 10. get poll_food #
 11. delete poll_food #
