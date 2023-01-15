@@ -20,7 +20,7 @@ import java.util.Properties;
 public class Util
 {
     // App consts
-    public static final String URL = "/api/v_1_5_5";
+    public static final String URL = "/api/v_1_6_0";
     public static final String NOT_ENOUGH_PERMISSIONS = "You don't have enough permissions to do this";
     public static final String INVALID_REQUEST = "Invalid request";
 
@@ -94,7 +94,7 @@ public class Util
             <html>
                 <body>
                     <h2>Hi {name}, This is the link to change your password</h2>
-                    <a href="https://localhost:3000/changepassword?l={link}"><button>Change</button></a>
+                    <a href="http://localhost:3000/changepassword/change?l={link}"><button>Change</button></a>
                 </body>
             </html>
         """;

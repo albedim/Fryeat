@@ -27,9 +27,9 @@ public class RecoveryLinkController
         this.recoveryLinkService = recoveryLinkService;
     }
 
-    @GetMapping("/get")
+    @PostMapping("/getUserId")
     @CrossOrigin
-    public HashMap getLink(@RequestBody HashMap request)
+    public HashMap getUserId(@RequestBody HashMap request)
     {
         return this.recoveryLinkService.exists(request);
     }

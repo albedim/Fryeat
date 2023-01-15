@@ -32,14 +32,14 @@ public class PollController
 
     @GetMapping("/get/{userId}")
     @CrossOrigin
-    public List<Poll> getPolls(@PathVariable Long userId)
+    public List<HashMap> getPolls(@PathVariable Long userId)
     {
         return this.pollService.getPolls(userId);
     }
 
     @GetMapping("/getOwn/{ownerId}")
     @CrossOrigin
-    public List<Poll> getOwnPolls(@PathVariable Long ownerId)
+    public List<HashMap> getOwnPolls(@PathVariable Long ownerId)
     {
         return this.pollService.getOwnPolls(ownerId);
     }

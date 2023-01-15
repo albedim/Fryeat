@@ -46,12 +46,12 @@ public class Poll
     public boolean isFinished() { return finished; }
     public void setFinished(boolean finished) { this.finished = finished; }
 
-    public HashMap toJson()
+    public HashMap toJson(String ownerUsername)
     {
         HashMap response = new HashMap();
         response.put("id", id);
         response.put("name", name);
-        response.put("ownerId", ownerId);
+        response.put("ownerUsername", ownerUsername);
         response.put("finished", finished);
         return response;
     }
