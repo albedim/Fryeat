@@ -45,7 +45,7 @@ public class ParticipationService
         this.userService = userService;
     }
 
-    private boolean exists(Long pollId, Long userId)
+    private boolean exists(Long userId, Long pollId)
     {
         return this.participationRepository.exists(pollId, userId) > 0;
     }
@@ -54,7 +54,7 @@ public class ParticipationService
     {
         try{
             User user = userService.getByUsername(request.get("username").toString());
-            if(exists(Long.parseLong(request.get("pollId").toString()), user.getId()))
+            if(exists(user.getId(), Long.parseLong(request.get("pollId").toString())))
                 return Util.createResponse(false, Util.PARTICIPATION_ALREADY_EXISTS, 403);
             else{
                 Participation participation = new Participation(user.getId(), Long.parseLong(request.get("pollId").toString()));
@@ -70,7 +70,7 @@ public class ParticipationService
         }
     }
 
-    public void sendMail(User user, String pollId) throws MessagingException, UnsupportedEncodingException
+    private void sendMail(User user, String pollId) throws MessagingException, UnsupportedEncodingException
     {
         MimeMessage msg = Util.getMessage();
         msg.setFrom(new InternetAddress(Util.NOREPLY_EMAIL, Util.NOREPLY_NAME));
@@ -88,9 +88,21 @@ public class ParticipationService
         return Util.createResponse(true, Util.VOTE_SUCCESSFULLY_SET);
     }
 
+    public HashMap hasVoted(Long pollId, Long userId)
+    {
+        boolean hasVoted = this.participationRepository.hasVoted(pollId, userId) > 0;
+        return Util.createResponse(true, hasVoted);
+    }
+
+    public HashMap isParticipant(Long pollId, Long userId)
+    {
+        boolean isParticipant = this.participationRepository.exists(pollId, userId) > 0;
+        return Util.createResponse(true, isParticipant);
+    }
+
     public HashMap deleteParticipation(Long userId, Long pollId)
     {
         this.participationRepository.deleteParticipation(userId, pollId);
-        return Util.createResponse(false, Util.PARTICIPATION_SUCCESSFULLY_DELETED);
+        return Util.createResponse(true, Util.PARTICIPATION_SUCCESSFULLY_DELETED);
     }
 }

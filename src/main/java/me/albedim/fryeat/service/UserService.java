@@ -71,31 +71,10 @@ public class UserService
         }
     }
 
-    public List<HashMap> getIterationUsers_Participation(Long pollId)
-    {
-        try{
-            List<User> participants = this.userRepository.getParticipants(pollId);
-            List<User> allUsers = (List<User>) this.userRepository.findAll();
-            List<HashMap> users = new ArrayList<>();
-
-            for(User user : allUsers)
-                if(!user.getId().equals(this.pollService.get(pollId).getOwnerId()))
-                    if(participants.contains(user))
-                        users.add(user.toJson(true));
-                    else
-                        users.add(user.toJson(false));
-
-            return users;
-        }catch (NullPointerException exception){
-            return null;
-        }
-    }
-
     public List<User> getParticipants(Long pollId)
     {
         return this.userRepository.getParticipants(pollId);
     }
-
 
     public HashMap signIn(HashMap request)
     {
@@ -121,7 +100,7 @@ public class UserService
         }
     }
 
-    public void sendMail(User user) throws MessagingException, UnsupportedEncodingException
+    private void sendMail(User user) throws MessagingException, UnsupportedEncodingException
     {
         MimeMessage msg = Util.getMessage();
         msg.setFrom(new InternetAddress(Util.NOREPLY_EMAIL, Util.NOREPLY_NAME));

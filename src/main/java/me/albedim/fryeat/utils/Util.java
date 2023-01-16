@@ -20,7 +20,7 @@ import java.util.Properties;
 public class Util
 {
     // App consts
-    public static final String URL = "/api/v_1_6_0";
+    public static final String URL = "/api/v_1_6_5";
     public static final String NOT_ENOUGH_PERMISSIONS = "You don't have enough permissions to do this";
     public static final String INVALID_REQUEST = "Invalid request";
 
@@ -79,7 +79,7 @@ public class Util
                     <h3>What are you waiting for winning this</h3>
                     <h3>and make your friends eta what you want!</h3>
                   </div>
-                  <a href="https://localhost/home/{pollId}"><button>Vote Now</button></a>
+                  <a href="https://localhost/poll/{pollId}"><button>Vote Now</button></a>
                 </div>
               </body>
             </html>
@@ -102,6 +102,16 @@ public class Util
 
 
     public static HashMap createResponse(Boolean success, String param)
+    {
+        HashMap response = new HashMap<>();
+        response.put("date", String.valueOf(LocalDateTime.now()));
+        response.put("success", success);
+        response.put("param", param);
+        response.put("code", 200);
+        return response;
+    }
+
+    public static HashMap createResponse(Boolean success, boolean param)
     {
         HashMap response = new HashMap<>();
         response.put("date", String.valueOf(LocalDateTime.now()));

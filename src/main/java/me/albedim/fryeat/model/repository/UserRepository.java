@@ -48,6 +48,7 @@ public interface UserRepository extends CrudRepository<User, Long>
     @Query(value = "SELECT * " +
             "FROM users " +
             "WHERE username = :email_username " +
+            "AND password = :password " +
             "OR email = :email_username " +
             "AND password = :password", nativeQuery = true)
     User signIn(@Param("email_username") String emailUsername, @Param("password") String password);

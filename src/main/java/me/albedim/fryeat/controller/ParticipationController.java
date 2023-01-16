@@ -38,6 +38,20 @@ public class ParticipationController
         return this.participationService.setVote(pollId, userId);
     }
 
+    @GetMapping("/isParticipant")
+    @CrossOrigin
+    public HashMap isParticipant(@RequestParam Long userId, @RequestParam Long pollId)
+    {
+        return this.participationService.isParticipant(pollId, userId);
+    }
+
+    @GetMapping("/hasVoted")
+    @CrossOrigin
+    public HashMap hasVoted(@RequestParam Long userId, @RequestParam Long pollId)
+    {
+        return this.participationService.hasVoted(pollId, userId);
+    }
+
     @DeleteMapping("/delete")
     @CrossOrigin
     public HashMap delete(@RequestParam Long userId, @RequestParam Long pollId)

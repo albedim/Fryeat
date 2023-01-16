@@ -34,13 +34,6 @@ public class UserController
         return this.userService.signUp(request);
     }
 
-    @GetMapping("/getIterationUsersWithParticipation/{pollId}")
-    @CrossOrigin
-    public List<HashMap> getIterationUsers_Participation(@PathVariable Long pollId)
-    {
-        return this.userService.getIterationUsers_Participation(pollId);
-    }
-
     @GetMapping("/getParticipants/{pollId}")
     @CrossOrigin
     public List<User> getParticipants(@PathVariable Long pollId)
@@ -55,7 +48,7 @@ public class UserController
         return this.userService.signIn(request);
     }
 
-    @GetMapping("get/{id}")
+    @GetMapping("/get/{id}")
     @CrossOrigin
     public User get(@PathVariable Long id)
     {

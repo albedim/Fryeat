@@ -15,11 +15,9 @@ import java.util.List;
 public class PollController
 {
     private PollService pollService;
-    private ParticipationService participationService;
 
-    public PollController(PollService pollService, ParticipationService participationService)
+    public PollController(PollService pollService)
     {
-        this.participationService = participationService;
         this.pollService = pollService;
     }
 
@@ -35,6 +33,13 @@ public class PollController
     public List<HashMap> getPolls(@PathVariable Long userId)
     {
         return this.pollService.getPolls(userId);
+    }
+
+    @GetMapping("/getPoll/{pollId}")
+    @CrossOrigin
+    public Poll getPoll(@PathVariable Long pollId)
+    {
+        return this.pollService.get(pollId);
     }
 
     @GetMapping("/getOwn/{ownerId}")

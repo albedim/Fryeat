@@ -26,12 +26,12 @@ public interface PollRepository extends CrudRepository<Poll, Long>
             "FROM polls " +
             "JOIN participations " +
             "ON participations.poll_id = polls.id " +
-            "AND participations.user_id = user_id " +
+            "AND participations.user_id = :userId " +
             "ORDER BY id " +
             "DESC", nativeQuery = true)
     List<Poll> getPolls(@Param("userId") Long userId);
 
-    @Query(value = "SELECT * FROM polls WHERE owner_id = :ownerId ORDER BY id DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM polls WHERE owner_id = :ownerId ORDER BY id DESC LIMIT 1", nativeQuery = true)
     Poll getLastPoll(@Param("ownerId") Long ownerId);
 
     @Query(value = "SELECT * FROM polls WHERE owner_id = :ownerId ORDER BY id DESC", nativeQuery = true)
