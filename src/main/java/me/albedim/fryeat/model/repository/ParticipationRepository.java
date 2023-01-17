@@ -32,6 +32,11 @@ public interface ParticipationRepository extends CrudRepository<Participation, L
 
     @Modifying
     @Transactional
+    @Query(value = "DELETE FROM participations WHERE poll_id = :pollId", nativeQuery = true)
+    void deleteParticipations(@Param("pollId") Long pollId);
+
+    @Modifying
+    @Transactional
     @Query(value = "DELETE FROM participations WHERE user_id = :userId AND poll_id = :pollId", nativeQuery = true)
     void deleteParticipation(@Param("userId") Long userId, @Param("pollId") Long pollId);
 }

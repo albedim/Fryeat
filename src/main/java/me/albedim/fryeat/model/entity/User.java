@@ -57,13 +57,12 @@ public class User
     public String getPlace() { return place; }
     public void setPlace(String place) { this.place = place; }
 
-    public HashMap toJson(boolean participant)
+    public HashMap toJson()
     {
         HashMap response = new HashMap();
         response.put("id", id);
         response.put("name", name);
         response.put("email", email);
-        response.put("participant", participant);
         response.put("username", username);
         response.put("password", password);
         return response;

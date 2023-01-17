@@ -20,12 +20,13 @@ import java.util.Properties;
 public class Util
 {
     // App consts
-    public static final String URL = "/api/v_1_6_5";
+    public static final String URL = "/api/v_1_7_0";
     public static final String NOT_ENOUGH_PERMISSIONS = "You don't have enough permissions to do this";
     public static final String INVALID_REQUEST = "Invalid request";
 
     // User consts
     public static final String USER_NOT_FOUND = "User not found";
+    public static final String USER_SUCCESSFULLY_CHANGED = "User successfully changed";
     public static final String USER_PASSWORD_SUCCESSFULLY_CHANGED = "Password successfully changed";
     public static final String SIGNUP_MAIL_SUBJECT = "Welcome to Fryeat!";
     public static final String SIGNUP_MAIL_TEXT =
@@ -54,7 +55,9 @@ public class Util
     public static final String VOTE_SUCCESSFULLY_ADDED = "Your vote has been added";
 
     // Poll consts
+    public static final String POLL_SUCCESSFULLY_CLOSED = "Poll successfully closed";
     public static final String POLL_SUCCESSFULLY_CREATED = "Poll successfully created";
+    public static final String POLL_SUCCESSFULLY_DELETED = "Poll successfully deleted";
 
     // Food consts
     public static final String FOOD_SUCCESSFULLY_CREATED = "Food successfully created";

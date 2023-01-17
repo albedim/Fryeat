@@ -71,9 +71,16 @@ public class UserService
         }
     }
 
-    public List<User> getParticipants(Long pollId)
+    public List<HashMap> getParticipants(Long pollId)
     {
-        return this.userRepository.getParticipants(pollId);
+        List<User> participants = this.userRepository.getParticipants(pollId);
+        List<HashMap> result = new ArrayList<>();
+
+        for (User participant : participants)
+            if(!participant.getId().equals(this.pollService.get(pollId).getOwnerId()))
+                result.add(participant.toJson());
+
+        return result;
     }
 
     public HashMap signIn(HashMap request)
@@ -89,6 +96,18 @@ public class UserService
         }catch (NullPointerException exception){
             return Util.createResponse(false, Util.INVALID_REQUEST, 500);
         }
+    }
+
+    public HashMap changeData(HashMap request)
+    {
+        this.userRepository.changeData(
+                request.get("name").toString(),
+                request.get("username").toString(),
+                request.get("place").toString(),
+                Util.hash(request.get("password").toString()),
+                Long.parseLong(request.get("id").toString())
+        );
+        return Util.createResponse(true, Util.USER_SUCCESSFULLY_CHANGED);
     }
 
     public User getByUsername(String username)

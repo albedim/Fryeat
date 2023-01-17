@@ -21,6 +21,12 @@ public interface PollFoodRepository extends CrudRepository<PollFood, Long>
     @Query(value = "SELECT COUNT(*) FROM polls_food WHERE poll_id = :pollId AND food_id = :foodId", nativeQuery = true)
     Integer exists(@Param("pollId") Long pollId, @Param("foodId") Long foodId);
 
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM polls_food WHERE poll_id = :pollId", nativeQuery = true)
+    void deleteAll(@Param("pollId") Long pollId);
+
     @Transactional
     @Modifying
     @Query(value = "DELETE FROM polls_food WHERE poll_id = :pollId AND food_id = :foodId", nativeQuery = true)

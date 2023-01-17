@@ -56,4 +56,9 @@ public class VoteService
         }
     }
 
+    public void deleteVotes(Long pollId)
+    {
+        this.voteRepository.deleteVotes(pollId);
+    }
+
 }

@@ -53,4 +53,9 @@ public class PollFoodService
         this.pollFoodRepository.delete(pollId, foodId);
         return Util.createResponse(true, Util.POLLFOOD_SUCCESSFULLY_DELETED);
     }
+
+    public void deleteAll(Long pollId)
+    {
+        this.pollFoodRepository.deleteAll(pollId);
+    }
 }

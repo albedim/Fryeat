@@ -105,4 +105,9 @@ public class ParticipationService
         this.participationRepository.deleteParticipation(userId, pollId);
         return Util.createResponse(true, Util.PARTICIPATION_SUCCESSFULLY_DELETED);
     }
+
+    public void deleteParticipations(Long pollId)
+    {
+        this.participationRepository.deleteParticipations(pollId);
+    }
 }

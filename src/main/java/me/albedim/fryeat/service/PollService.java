@@ -22,14 +22,16 @@ import java.util.List;
 public class PollService
 {
     private PollRepository pollRepository;
-
     private UserService userService;
-
+    private PollFoodService pollFoodService;
     private ParticipationService participationService;
+    private VoteService voteService;
 
-    public PollService(PollRepository pollRepository, @Lazy UserService userService, ParticipationService participationService)
+    public PollService(PollRepository pollRepository, VoteService voteService, @Lazy UserService userService, PollFoodService pollFoodService, ParticipationService participationService)
     {
         this.pollRepository = pollRepository;
+        this.voteService = voteService;
+        this.pollFoodService = pollFoodService;
         this.userService = userService;
         this.participationService = participationService;
     }
@@ -58,6 +60,27 @@ public class PollService
         }
     }
 
+    public HashMap closePoll(Long pollId)
+    {
+        this.pollRepository.close(pollId);
+        return Util.createResponse(true, Util.POLL_SUCCESSFULLY_CLOSED);
+    }
+
+    public HashMap deletePoll(Long pollId)
+    {
+        this.pollRepository.deleteById(pollId);
+        this.pollFoodService.deleteAll(pollId);
+        this.participationService.deleteParticipations(pollId);
+        this.voteService.deleteVotes(pollId);
+        return Util.createResponse(true, Util.POLL_SUCCESSFULLY_DELETED);
+    }
+
+    public HashMap isClosed(Long pollId)
+    {
+        boolean closed = this.pollRepository.isClosed(pollId) > 0;
+        return Util.createResponse(true, closed);
+    }
+
     public List<HashMap> getOwnPolls(Long ownerId)
     {
         List<Poll> ownPolls = this.pollRepository.getOwnPolls(ownerId);
@@ -74,8 +97,10 @@ public class PollService
         List<Poll> polls = this.pollRepository.getPolls(userId);
         List<HashMap> result = new ArrayList<>();
         for (Poll poll : polls){
-            String ownerNickname = this.userService.get(poll.getOwnerId()).getUsername();
-            result.add(poll.toJson(ownerNickname));
+            if(!poll.getOwnerId().equals(userId)){
+                String ownerNickname = this.userService.get(poll.getOwnerId()).getUsername();
+                result.add(poll.toJson(ownerNickname));
+            }
         }
         return result;
     }

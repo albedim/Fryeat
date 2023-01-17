@@ -35,6 +35,27 @@ public class PollController
         return this.pollService.getPolls(userId);
     }
 
+    @PutMapping("/close/{pollId}")
+    @CrossOrigin
+    public HashMap close(@PathVariable Long pollId)
+    {
+        return this.pollService.closePoll(pollId);
+    }
+
+    @DeleteMapping("/delete/{pollId}")
+    @CrossOrigin
+    public HashMap delete(@PathVariable Long pollId)
+    {
+        return this.pollService.deletePoll(pollId);
+    }
+
+    @GetMapping("/isClosed/{pollId}")
+    @CrossOrigin
+    public HashMap isClosed(@PathVariable Long pollId)
+    {
+        return this.pollService.isClosed(pollId);
+    }
+
     @GetMapping("/getPoll/{pollId}")
     @CrossOrigin
     public Poll getPoll(@PathVariable Long pollId)
