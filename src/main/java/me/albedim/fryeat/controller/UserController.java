@@ -34,7 +34,7 @@ public class UserController
         return this.userService.signUp(request);
     }
 
-    @GetMapping("/getParticipants/{pollId}")
+    @GetMapping("/get-participants/{pollId}")
     @CrossOrigin
     public List<HashMap> getParticipants(@PathVariable Long pollId)
     {
@@ -55,14 +55,14 @@ public class UserController
         return this.userService.get(id);
     }
 
-    @PutMapping("/changePassword")
+    @PutMapping("/change-password")
     @CrossOrigin
     public HashMap changePassword(@RequestBody HashMap request)
     {
         return this.userService.changePassword(request);
     }
 
-    @PutMapping("/changeData")
+    @PutMapping("/change-data")
     @CrossOrigin
     public HashMap changeData(@RequestBody HashMap request)
     {

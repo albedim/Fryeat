@@ -49,21 +49,21 @@ public class PollController
         return this.pollService.deletePoll(pollId);
     }
 
-    @GetMapping("/isClosed/{pollId}")
+    @GetMapping("/is-closed/{pollId}")
     @CrossOrigin
     public HashMap isClosed(@PathVariable Long pollId)
     {
         return this.pollService.isClosed(pollId);
     }
 
-    @GetMapping("/getPoll/{pollId}")
+    @GetMapping("/get-poll/{pollId}")
     @CrossOrigin
     public Poll getPoll(@PathVariable Long pollId)
     {
         return this.pollService.get(pollId);
     }
 
-    @GetMapping("/getOwn/{ownerId}")
+    @GetMapping("/get-own/{ownerId}")
     @CrossOrigin
     public List<HashMap> getOwnPolls(@PathVariable Long ownerId)
     {

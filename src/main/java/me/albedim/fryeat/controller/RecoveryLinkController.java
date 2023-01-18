@@ -17,7 +17,7 @@ import java.util.HashMap;
  */
 
 @RestController
-@RequestMapping(Util.URL + "/recoveryLink")
+@RequestMapping(Util.URL + "/recovery-link")
 public class RecoveryLinkController
 {
     private RecoveryLinkService recoveryLinkService;
@@ -27,7 +27,7 @@ public class RecoveryLinkController
         this.recoveryLinkService = recoveryLinkService;
     }
 
-    @PostMapping("/getUserId")
+    @PostMapping("/get-user-id")
     @CrossOrigin
     public HashMap getUserId(@RequestBody HashMap request)
     {

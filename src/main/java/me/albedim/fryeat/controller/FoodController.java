@@ -26,7 +26,7 @@ public class FoodController
         this.foodService = foodService;
     }
 
-    @GetMapping("/getPollFood/{pollId}")
+    @GetMapping("/get-poll-food/{pollId}")
     @CrossOrigin
     public Iterable<Food> getPollFood(@PathVariable Long pollId)
     {

@@ -36,9 +36,6 @@ public class ParticipationService
     private ParticipationRepository participationRepository;
     private UserService userService;
 
-    @Autowired
-    private JavaMailSender javaMailSender;
-
     public ParticipationService(ParticipationRepository participationRepository, @Lazy UserService userService)
     {
         this.participationRepository = participationRepository;
@@ -53,6 +50,7 @@ public class ParticipationService
     public HashMap add(HashMap request)
     {
         try{
+            // Gets user by its username
             User user = userService.getByUsername(request.get("username").toString());
             if(exists(user.getId(), Long.parseLong(request.get("pollId").toString())))
                 return Util.createResponse(false, Util.PARTICIPATION_ALREADY_EXISTS, 403);

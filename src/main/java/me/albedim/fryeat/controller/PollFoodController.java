@@ -15,7 +15,7 @@ import java.util.HashMap;
  */
 
 @RestController
-@RequestMapping(Util.URL + "/pollfood")
+@RequestMapping(Util.URL + "/poll-food")
 public class PollFoodController
 {
     private PollFoodService pollFoodService;

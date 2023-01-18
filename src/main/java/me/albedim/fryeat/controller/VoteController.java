@@ -25,7 +25,7 @@ public class VoteController
         this.voteService = voteService;
     }
 
-    @GetMapping("/getVotes/{pollId}")
+    @GetMapping("/get-votes/{pollId}")
     @CrossOrigin
     public List<HashMap> getPollFood(@PathVariable Long pollId)
     {

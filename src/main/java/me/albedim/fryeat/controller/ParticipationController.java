@@ -31,21 +31,21 @@ public class ParticipationController
         return this.participationService.add(request);
     }
 
-    @PutMapping("/setVote")
+    @PutMapping("/set-vote")
     @CrossOrigin
     public HashMap setVote(@RequestParam Long userId, @RequestParam Long pollId)
     {
         return this.participationService.setVote(pollId, userId);
     }
 
-    @GetMapping("/isParticipant")
+    @GetMapping("/is-participant")
     @CrossOrigin
     public HashMap isParticipant(@RequestParam Long userId, @RequestParam Long pollId)
     {
         return this.participationService.isParticipant(pollId, userId);
     }
 
-    @GetMapping("/hasVoted")
+    @GetMapping("/has-voted")
     @CrossOrigin
     public HashMap hasVoted(@RequestParam Long userId, @RequestParam Long pollId)
     {
