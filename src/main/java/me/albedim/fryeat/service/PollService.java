@@ -43,8 +43,8 @@ public class PollService
             this.pollRepository.save(poll);
 
             // Making the participation request
-            Long createdPollId = Long.parseLong(this.pollRepository.getLastPoll(
-                    Long.parseLong(request.get("ownerId").toString())).getId().toString());
+            Long createdPollId = this.pollRepository.getLastPoll(
+                    Long.parseLong(request.get("ownerId").toString())).getId();
             String username = this.userService.get(Long.parseLong(request.get("ownerId").toString())).getUsername();
             HashMap participation = new HashMap();
             participation.put("username", username);

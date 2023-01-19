@@ -42,6 +42,32 @@ public class VoteService
         return result;
     }
 
+    public List<HashMap> getFinalVotes(Long pollId)
+    {
+        try{
+            List<HashMap> votes = getVotes(pollId);
+            List<HashMap> result = new ArrayList<>();
+            // get max
+            HashMap winner = votes.get(0);
+            for(HashMap vote : votes)
+                if(Long.parseLong(vote.get("votes").toString()) > Long.parseLong(winner.get("votes").toString()))
+                    winner = vote;
+            // Every vote will be confronted to the max vote and added
+            // in the result array and targeted as "winner=true" if it's the same, else "winner=false"
+            for(HashMap vote : votes)
+                if(vote.get("id").toString().equals(winner.get("id").toString())){
+                    vote.put("winner", true);
+                    result.add(vote);
+                }else{
+                    vote.put("winner", false);
+                    result.add(vote);
+                }
+            return result;
+        }catch (NullPointerException | ArrayIndexOutOfBoundsException exception){
+            return null;
+        }
+    }
+
     public HashMap addVote(HashMap request)
     {
         try{
